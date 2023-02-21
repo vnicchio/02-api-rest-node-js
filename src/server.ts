@@ -5,8 +5,17 @@ import { env } from './env'
 const app = fastify()
 
 app.get('/hello', () => {
-  const tables = knex('sqlite_schema').select('*')
-  return tables
+  //   const transaction = knex('transactions')
+  //     .insert({
+  //       id: crypto.randomUUID(),
+  //       title: 'Transação 1',
+  //       amount: 1000,
+  //     })
+  //     .returning('*')
+
+  const transactions = knex('transactions').select('*').where({ amount: 1000 })
+
+  return transactions
 })
 
 app.listen({ port: env.PORT }).then(() => {
